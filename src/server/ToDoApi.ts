@@ -4,7 +4,6 @@ import { CREATE_TODO, EDIT_TODO, FETCH_TODOS } from './TemplatesQL';
 const todosEndpoint = `${process.env.REACT_APP_BACKEND}/todos`;
 const headers = {
   'Content-Type': 'application/json',
-  // Authorization: 'TODO: IMPLEMENT AUTH',
 };
 
 export const getToDoList = async () => {
