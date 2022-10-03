@@ -21,8 +21,9 @@ export default class ToDo {
 
   async init() {
     const response = await getToDoList();
-
-    this.addToStore(...response);
+    if (response) {
+      this.addToStore(...response);
+    }
   }
 
   addToStore(...todos: ToDoModel[]) {
@@ -39,13 +40,15 @@ export default class ToDo {
 
   async createToDo(description: string, isCompleted: boolean) {
     const response = await addNewToDo(description, isCompleted);
-
-    this.addToStore(response);
+    if (response) {
+      this.addToStore(response);
+    }
   }
 
   async editInStore(id: string, newData: Partial<ToDoModel>) {
     try {
       const editedToDo = await editToDo(id, newData);
+      if (!editedToDo) return;
 
       const index = this.ToDos.findIndex(todo => todo.id === id);
 

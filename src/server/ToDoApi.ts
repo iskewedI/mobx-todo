@@ -1,49 +1,106 @@
-import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+import { CREATE_TODO, EDIT_TODO, FETCH_TODOS } from './TemplatesQL';
 
-const DB: ToDoModel[] = [
-  { id: uuidv4(), description: 'Make bed', isCompleted: true },
-  { id: uuidv4(), description: 'Buy fruits', isCompleted: false },
-  { id: uuidv4(), description: 'Make breakfast', isCompleted: false },
-  { id: uuidv4(), description: 'Kiss lu', isCompleted: true },
-];
-
-const sleep = (time: number) =>
-  new Promise(res => {
-    setTimeout(() => {
-      res(null);
-    }, time);
-  });
+const todosEndpoint = `${process.env.REACT_APP_BACKEND}/todos`;
+const headers = {
+  'Content-Type': 'application/json',
+  // Authorization: 'TODO: IMPLEMENT AUTH',
+};
 
 export const getToDoList = async () => {
-  // Act as if calling a backend server
-  await sleep(250);
+  const query = {
+    operationName: 'fetchTodos',
+    query: FETCH_TODOS,
+    variables: {},
+  };
 
-  return DB;
+  try {
+    const {
+      data: { data },
+    } = await axios.post<FetchTodosResponse>(todosEndpoint, {
+      headers,
+      ...query,
+    });
+
+    return data.todos;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return console.error(
+        'Service error trying to POST Todos => ',
+        query,
+        error.message,
+        error
+      );
+    }
+
+    console.error('Unexpected error trying to get the todos list => ', query, error);
+  }
 };
 
 export const addNewToDo = async (description: string, isCompleted: boolean) => {
-  // Act as if calling a backend server
-  await sleep(15);
-
-  const newToDo: ToDoModel = {
-    id: uuidv4(),
-    description,
-    isCompleted,
+  const query = {
+    operationName: 'CreateTodo',
+    query: CREATE_TODO,
+    variables: { description, isCompleted },
   };
 
-  DB.push(newToDo);
+  try {
+    const {
+      data: { data, errors },
+    } = await axios.post<CreateTodoResponse>(todosEndpoint, {
+      headers,
+      ...query,
+    });
 
-  return newToDo;
+    if (errors) {
+      throw new Error(errors.message);
+    }
+
+    return data.createTodo;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return console.error(
+        'Service error trying to POST Todos => ',
+        query,
+        error.message,
+        error
+      );
+    }
+
+    console.error('Unexpected error trying to create the todo => ', query, error);
+  }
 };
 
 export const editToDo = async (id: string, data: Partial<ToDoModel>) => {
-  await sleep(15);
+  const query = {
+    operationName: 'EditTodo',
+    query: EDIT_TODO,
+    variables: { id, data },
+  };
 
-  const index = DB.findIndex(todo => todo.id === id);
-  if (index < 0) throw new Error(`Couldn't find todo with id => ${id}`);
+  try {
+    const {
+      data: { data, errors },
+    } = await axios.post<EditTodoResponse>(todosEndpoint, {
+      headers,
+      ...query,
+    });
 
-  DB[index].description = data.description ?? DB[index].description;
-  DB[index].isCompleted = data.isCompleted ?? DB[index].isCompleted;
+    if (errors) {
+      throw new Error(errors.message);
+    }
 
-  return DB[index];
+    return data.editTodo;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return console.error(
+        'Service error trying to POST Todos => ',
+        query,
+        error.message,
+        error
+      );
+    }
+
+    console.error('Unexpected error trying to edit the todo => ', data, query, error);
+  }
 };
