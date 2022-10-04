@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CREATE_TODO, EDIT_TODO, FETCH_TODOS } from './TemplatesQL';
+import { CREATE_TODO, DELETE_TODO, EDIT_TODO, FETCH_TODOS } from './TemplatesQL';
 
 const todosEndpoint = `${process.env.REACT_APP_BACKEND}/todos`;
 const headers = {
@@ -101,5 +101,39 @@ export const editToDo = async (id: string, data: Partial<ToDoModel>) => {
     }
 
     console.error('Unexpected error trying to edit the todo => ', data, query, error);
+  }
+};
+
+export const deleteTodo = async (id: string) => {
+  const query = {
+    operationName: 'DeleteTodo',
+    query: DELETE_TODO,
+    variables: { id },
+  };
+
+  try {
+    const {
+      data: { data, errors },
+    } = await axios.post<DeleteTodoResponse>(todosEndpoint, {
+      headers,
+      ...query,
+    });
+
+    if (errors) {
+      throw new Error(errors.message);
+    }
+
+    return data.deleteTodo.success;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return console.error(
+        'Service error trying to POST Todo => ',
+        query,
+        error.message,
+        error
+      );
+    }
+
+    console.error('Unexpected error trying to delete the todo => ', id, query, error);
   }
 };

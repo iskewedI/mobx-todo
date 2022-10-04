@@ -26,6 +26,14 @@ declare interface EditTodoResponse {
   errors: Error;
 }
 
+declare interface DeleteTodoResponse {
+  data: {
+    deleteTodo: { success: Boolean };
+  };
+
+  errors: Error;
+}
+
 declare type Error = {
   message: String;
 };

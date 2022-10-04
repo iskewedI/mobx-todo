@@ -27,3 +27,11 @@ export const EDIT_TODO = `
     }
   }
 `;
+
+export const DELETE_TODO = `
+  mutation DeleteTodo($id: String!) {
+    deleteTodo(id: $id){
+      success
+    }
+  }
+`;

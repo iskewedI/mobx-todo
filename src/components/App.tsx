@@ -1,11 +1,11 @@
-import ToDo from '../store/ToDo';
 import { observer } from 'mobx-react-lite';
-import './App.css';
+import ToDoStore from '../store/ToDoStore';
 import ToDoList from './ToDoList';
 import FormInput from './FormInput';
+import './App.css';
 
 interface Props {
-  store: ToDo;
+  store: ToDoStore;
 }
 
 const App = observer(({ store }: Props) => {
@@ -17,11 +17,13 @@ const App = observer(({ store }: Props) => {
     store.editInStore(id, { isCompleted });
   };
 
-  console.log(store.getToDos());
+  const handleDelete = (id: string) => {
+    store.deleteTodo(id);
+  };
 
   return (
     <div className='app'>
-      <ToDoList store={store} onCheckClick={handleCheckClick} />
+      <ToDoList store={store} onCheckClick={handleCheckClick} onDelete={handleDelete} />
       <FormInput title='Add' onSubmit={handleNewToDo} />
     </div>
   );

@@ -1,22 +1,24 @@
 import { observer } from 'mobx-react-lite';
 import './ToDoList.css';
-import ToDo from '../../store/ToDo';
+import ToDoStore from '../../store/ToDoStore';
+import ToDo from '../ToDo';
 
 interface Props {
-  store: ToDo;
+  store: ToDoStore;
   onCheckClick: (id: string, isCompleted: boolean) => void;
+  onDelete: (id: string) => void;
 }
 
-const ToDoList = observer(({ store, onCheckClick }: Props) => {
+const ToDoList = observer(({ store, onCheckClick, onDelete }: Props) => {
   return (
     <div className='todo-list'>
-      {store.ToDos.map(({ id, description, isCompleted }) => (
-        <div key={id} className='todo'>
-          <div>{description}</div>
-          <button className='todo-button' onClick={() => onCheckClick(id, !isCompleted)}>
-            {isCompleted ? '☑' : '☐'}
-          </button>
-        </div>
+      {store.ToDos.map(todo => (
+        <ToDo
+          key={todo.id}
+          {...todo}
+          onCheckClick={() => onCheckClick(todo.id, !todo.isCompleted)}
+          onDelete={() => onDelete(todo.id)}
+        />
       ))}
     </div>
   );

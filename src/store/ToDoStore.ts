@@ -1,10 +1,10 @@
 import { makeObservable, observable, action, configure } from 'mobx';
-import { addNewToDo, editToDo, getToDoList } from '../server/ToDoApi';
+import { addNewToDo, deleteTodo, editToDo, getToDoList } from '../server/ToDoApi';
 
 // State always needs to be changed through actions, which in practice also includes creation.
 configure({ enforceActions: 'always' });
 
-export default class ToDo {
+export default class ToDoStore {
   ToDos: ToDoModel[] = [];
 
   constructor() {
@@ -16,6 +16,8 @@ export default class ToDo {
       getToDos: action,
       createToDo: action,
       editToDo: action,
+      _remove: action,
+      deleteTodo: action,
     });
   }
 
@@ -38,6 +40,10 @@ export default class ToDo {
     this.ToDos[index] = data;
   }
 
+  _remove(index: number) {
+    this.ToDos.splice(index, 1);
+  }
+
   async createToDo(description: string, isCompleted: boolean) {
     const response = await addNewToDo(description, isCompleted);
     if (response) {
@@ -56,5 +62,16 @@ export default class ToDo {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async deleteTodo(id: string) {
+    const success = await deleteTodo(id);
+    if (!success) return console.error("Couldn't delete Todo with id => ", id);
+
+    const index = this.ToDos.findIndex(todo => todo.id === id);
+    if (index < 0)
+      return console.error("Couldn't find Todo in internal store with id =>", id);
+
+    this._remove(index);
   }
 }

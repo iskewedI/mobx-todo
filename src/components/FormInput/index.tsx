@@ -17,6 +17,9 @@ const FormInput = ({ title, onSubmit }: Props) => {
     const inputValue = inputRef.current?.value;
     if (!inputValue) return;
 
+    inputRef.current.value = '';
+    inputRef.current.focus();
+
     onSubmit(inputValue);
   };
 
