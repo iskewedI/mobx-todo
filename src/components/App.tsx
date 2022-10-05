@@ -13,8 +13,8 @@ const App = observer(({ store }: Props) => {
     store.createToDo(newValue, false);
   };
 
-  const handleCheckClick = (id: string, isCompleted: boolean) => {
-    store.editInStore(id, { isCompleted });
+  const handleEdit = (id: string, data: Partial<ToDoModel>) => {
+    store.editInStore(id, data);
   };
 
   const handleDelete = (id: string) => {
@@ -23,7 +23,7 @@ const App = observer(({ store }: Props) => {
 
   return (
     <div className='app'>
-      <ToDoList store={store} onCheckClick={handleCheckClick} onDelete={handleDelete} />
+      <ToDoList store={store} onTodoEdit={handleEdit} onDelete={handleDelete} />
       <FormInput title='Add' onSubmit={handleNewToDo} />
     </div>
   );

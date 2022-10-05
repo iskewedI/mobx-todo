@@ -5,18 +5,21 @@ import ToDo from '../ToDo';
 
 interface Props {
   store: ToDoStore;
-  onCheckClick: (id: string, isCompleted: boolean) => void;
+  onTodoEdit: (id: string, data: Partial<ToDoModel>) => void;
   onDelete: (id: string) => void;
 }
 
-const ToDoList = observer(({ store, onCheckClick, onDelete }: Props) => {
+const ToDoList = observer(({ store, onTodoEdit, onDelete }: Props) => {
   return (
     <div className='todo-list'>
       {store.ToDos.map(todo => (
         <ToDo
           key={todo.id}
           {...todo}
-          onCheckClick={() => onCheckClick(todo.id, !todo.isCompleted)}
+          onDescriptionChange={(description: string) =>
+            onTodoEdit(todo.id, { description })
+          }
+          onCheckClick={() => onTodoEdit(todo.id, { isCompleted: !todo.isCompleted })}
           onDelete={() => onDelete(todo.id)}
         />
       ))}
