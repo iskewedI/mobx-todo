@@ -19,7 +19,11 @@ const ToDo = ({
 }: Props) => {
   return (
     <div className='todo'>
-      <div>{<EditableText text={description} onChange={onDescriptionChange} />}</div>
+      <EditableText
+        containerClasses='todo__description'
+        text={description}
+        onChange={onDescriptionChange}
+      />
       <button className='todo-button' onClick={onCheckClick}>
         {isCompleted ? '☑' : '☐'}
       </button>

@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import ToDoStore from '../store/ToDoStore';
 import ToDoList from './ToDoList';
-import FormInput from './FormInput';
 import './App.css';
 
 interface Props {
@@ -23,8 +22,12 @@ const App = observer(({ store }: Props) => {
 
   return (
     <div className='app'>
-      <ToDoList store={store} onTodoEdit={handleEdit} onDelete={handleDelete} />
-      <FormInput title='Add' onSubmit={handleNewToDo} />
+      <ToDoList
+        store={store}
+        onEdit={handleEdit}
+        onAdd={handleNewToDo}
+        onDelete={handleDelete}
+      />
     </div>
   );
 });

@@ -13,7 +13,7 @@
     "axios": "^0.27.2",
     "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
-    "new-era-components": "^1.1.4",
+    "new-era-components": "^1.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
