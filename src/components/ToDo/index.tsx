@@ -2,12 +2,12 @@ import { EditableText } from 'new-era-components';
 import './ToDo.css';
 
 interface Props {
-  id: string;
+  id?: string;
   description: string;
   isCompleted: boolean;
-  onDescriptionChange: (description: string) => void;
-  onCheckClick: () => void;
-  onDelete: () => void;
+  onDescriptionChange?: (description: string) => void;
+  onCheckClick?: () => void;
+  onDelete?: () => void;
 }
 
 const ToDo = ({
