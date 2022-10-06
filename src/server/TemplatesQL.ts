@@ -4,6 +4,7 @@ export const FETCH_TODOS = `
       id
       description
       isCompleted
+      place
     }
   }
 `;
@@ -24,6 +25,7 @@ export const EDIT_TODO = `
         id
         description
         isCompleted
+        place
     }
   }
 `;

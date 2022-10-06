@@ -3,6 +3,7 @@ import './ToDo.css';
 
 interface Props {
   id?: string;
+  refObj?: React.RefObject<HTMLDivElement>;
   description: string;
   isCompleted: boolean;
   onDescriptionChange?: (description: string) => void;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const ToDo = ({
+  refObj,
   description,
   isCompleted,
   onDescriptionChange,
@@ -18,7 +20,7 @@ const ToDo = ({
   onDelete,
 }: Props) => {
   return (
-    <div className='todo'>
+    <div className='todo' ref={refObj}>
       <EditableText
         containerClasses='todo__description'
         text={description}

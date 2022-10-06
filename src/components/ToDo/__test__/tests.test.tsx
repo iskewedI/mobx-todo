@@ -15,6 +15,7 @@ it('should render the component without any unexpected error', async () => {
     id: randomUUID(),
     description: 'Test todo',
     isCompleted: false,
+    place: 1,
   };
 
   render(<ToDo {...data} />);
@@ -32,6 +33,7 @@ it("should call the button methods if they're pressed", async () => {
     id: randomUUID(),
     description: 'Test todo',
     isCompleted: false,
+    place: 1,
   };
 
   let calledCheckClick = false;

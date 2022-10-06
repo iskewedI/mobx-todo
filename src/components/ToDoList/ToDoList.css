@@ -8,8 +8,29 @@
   align-content: space-around;
 }
 
+.todo-list.grabbing {
+  border: 1px solid rgba(222, 48, 48, 0.364);
+}
+
 .todo-list__header {
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+
+.todo-container {
+  width: 100%;
+  margin: 0.2rem 0;
+}
+
+.grabbable {
+  cursor: grab;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
+.whiteBackground {
+  /* background-color: white; */
 }

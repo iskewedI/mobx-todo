@@ -20,6 +20,10 @@ const App = observer(({ store }: Props) => {
     store.deleteTodo(id);
   };
 
+  const handleChangeOrder = (id: string, newPlace: number) => {
+    store.reorderInStore(id, newPlace);
+  };
+
   return (
     <div className='app'>
       <ToDoList
@@ -27,6 +31,7 @@ const App = observer(({ store }: Props) => {
         onEdit={handleEdit}
         onAdd={handleNewToDo}
         onDelete={handleDelete}
+        onChangeOrder={handleChangeOrder}
       />
     </div>
   );
