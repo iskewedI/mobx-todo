@@ -46,15 +46,16 @@ it("should call the button methods if they're pressed", async () => {
       store={new ToDoStore()}
       index={0}
       {...data}
-      onCheckClick={() => {
-        calledCheckClick = true;
-      }}
-      onDescriptionChange={() => {
-        calledDescriptionChange = true;
-      }}
-      onDelete={() => {
-        calledDelete = true;
-      }}
+      id='asdasd'
+      // onCheckClick={() => {
+      //   calledCheckClick = true;
+      // }}
+      // onDescriptionChange={() => {
+      //   calledDescriptionChange = true;
+      // }}
+      // onDelete={() => {
+      //   calledDelete = true;
+      // }}
     />
   );
 

@@ -8,26 +8,9 @@ interface Props {
 }
 
 const App = observer(({ store }: Props) => {
-  const handleNewToDo = (newValue: string) => {
-    store.createToDo(newValue, false);
-  };
-
-  const handleEdit = (id: string, data: Partial<ToDoModel>) => {
-    store.editInStore(id, data);
-  };
-
-  const handleDelete = (id: string) => {
-    store.deleteTodo(id);
-  };
-
   return (
     <div className='app'>
-      <ToDoList
-        store={store}
-        onEdit={handleEdit}
-        onAdd={handleNewToDo}
-        onDelete={handleDelete}
-      />
+      <ToDoList store={store} />
     </div>
   );
 });

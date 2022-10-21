@@ -3,25 +3,21 @@ import ToDoStore from '../../store/ToDoStore';
 import ToDo from '../ToDo';
 import FormInput from '../FormInput';
 import './ToDoList.css';
-import { VerticalDirection } from '../../types/enums';
 
 interface Props {
   store: ToDoStore;
-  onAdd: (newValue: string) => void;
-  onEdit: (id: string, data: Partial<ToDoModel>) => void;
-  onDelete: (id: string) => void;
 }
 
-const ToDoList = observer(({ store, onAdd, onEdit, onDelete }: Props) => {
-  const handleOrderChange = (id: string, direction: VerticalDirection) => {
-    store.chageOrderInStore(id, direction);
-  };
-
+const ToDoList = observer(({ store }: Props) => {
   const orderedTodos = [...store.ToDos].sort((a, b) => a.place - b.place);
+
+  const handleNewToDo = (newValue: string) => {
+    store.createToDo(newValue, false);
+  };
 
   return (
     <div className='todo-list'>
-      <FormInput title='Add' onSubmit={onAdd} />
+      <FormInput title='Add' onSubmit={handleNewToDo} />
 
       <div className='todo-list__header'>
         <h3>Description</h3>
@@ -32,19 +28,7 @@ const ToDoList = observer(({ store, onAdd, onEdit, onDelete }: Props) => {
       {orderedTodos.map((todo, i) => (
         <div key={todo.id} className='todo-container'>
           <div>
-            <ToDo
-              {...todo}
-              store={store}
-              index={i}
-              onDescriptionChange={(description: string) =>
-                onEdit(todo.id, { description })
-              }
-              onCheckClick={() => onEdit(todo.id, { isCompleted: !todo.isCompleted })}
-              onDelete={() => onDelete(todo.id)}
-              onChangeOrder={(direction: VerticalDirection) =>
-                handleOrderChange(todo.id, direction)
-              }
-            />
+            <ToDo {...todo} store={store} index={i} />
           </div>
         </div>
       ))}

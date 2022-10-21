@@ -7,31 +7,29 @@ import './ToDo.css';
 
 interface Props {
   store: ToDoStore;
-  id?: string;
+  id: string;
   description: string;
   isCompleted: boolean;
   index: number;
-  onDescriptionChange?: (description: string) => void;
-  onCheckClick?: () => void;
   onDelete?: () => void;
-  onChangeOrder?: (direction: VerticalDirection) => void;
 }
 
 const ToDo = observer(
-  ({
-    store,
-    index,
-    description,
-    isCompleted,
-    onDescriptionChange,
-    onCheckClick,
-    onDelete,
-    onChangeOrder,
-  }: Props) => {
+  ({ id, store, index, description, isCompleted, onDelete }: Props) => {
     const handleOrderChange = (direction: VerticalDirection) => {
-      if (onChangeOrder && typeof onChangeOrder === 'function') {
-        onChangeOrder(direction);
-      }
+      store.chageOrderInStore(id, direction);
+    };
+
+    const handleCheckClick = () => {
+      store.editInStore(id, { isCompleted: !isCompleted });
+    };
+
+    const handleDescriptionChange = () => {
+      store.editInStore(id, { description });
+    };
+
+    const handleDelete = () => {
+      store.deleteTodo(id);
     };
 
     const isFirst = index === 0;
@@ -55,14 +53,14 @@ const ToDo = observer(
           <EditableText
             containerClasses='todo__description__text'
             text={description}
-            onChange={onDescriptionChange}
+            onChange={handleDescriptionChange}
           />
         </div>
 
-        <button className='todo-button' onClick={onCheckClick}>
+        <button className='todo-button' onClick={handleCheckClick}>
           {isCompleted ? '☑' : '☐'}
         </button>
-        <button className='todo-button delete-button' onClick={onDelete}>
+        <button className='todo-button delete-button' onClick={handleDelete}>
           Delete
         </button>
       </div>
