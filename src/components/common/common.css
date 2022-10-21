@@ -1,0 +1,19 @@
+.unstyled {
+  all: unset;
+  cursor: pointer;
+  border-radius: 25%;
+}
+
+.arrow {
+  transition: background-color 0.1s ease-out;
+  background-color: transparent;
+}
+
+.arrow.hoverable:hover {
+  background-color: #d1d1d18f;
+}
+
+.arrow:disabled {
+  cursor: initial;
+  opacity: 0.2;
+}

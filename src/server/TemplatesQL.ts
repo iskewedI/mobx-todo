@@ -15,6 +15,7 @@ export const CREATE_TODO = `
       id
       description
       isCompleted
+      place
     }
   }
 `;

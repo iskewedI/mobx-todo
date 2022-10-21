@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import ToDo from '../index';
 import { randomUUID } from 'crypto';
 import '@testing-library/jest-dom';
+import ToDoStore from '../../../store/ToDoStore';
 
 const BUTTON_STATUS = {
   checked: '☑',
@@ -18,7 +19,7 @@ it('should render the component without any unexpected error', async () => {
     place: 1,
   };
 
-  render(<ToDo {...data} />);
+  render(<ToDo {...data} store={new ToDoStore()} index={0} />);
 
   const completedButton = screen.getAllByRole('button')[0];
 
@@ -42,6 +43,8 @@ it("should call the button methods if they're pressed", async () => {
 
   render(
     <ToDo
+      store={new ToDoStore()}
+      index={0}
       {...data}
       onCheckClick={() => {
         calledCheckClick = true;

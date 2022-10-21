@@ -19,8 +19,8 @@ export default class ToDoStore {
       editToDo: action,
       _remove: action,
       deleteTodo: action,
-      _changePlace: action,
-      reorderInStore: action,
+      chageOrderInStore: action,
+      _changePlaces: action,
     });
   }
 
@@ -32,7 +32,11 @@ export default class ToDoStore {
   }
 
   addToStore(...todos: ToDoModel[]) {
-    this.ToDos.push(...todos);
+    const newTodos = [...this.ToDos, ...todos];
+
+    newTodos.sort((a, b) => a.place - b.place);
+
+    this.ToDos = newTodos;
   }
 
   getToDos() {
@@ -43,22 +47,33 @@ export default class ToDoStore {
     this.ToDos[index] = data;
   }
 
-  _changePlace(newIndex: number, newPlace: number, direction: VerticalDirection) {
+  _changePlaces(newIndex: number, direction: VerticalDirection) {
     if (direction === VerticalDirection.Down) {
-      this.ToDos.slice(0, newIndex).forEach(todo => {
-        if (todo.place !== 0) {
-          console.log(`Reducing todo ${todo.description} from place ${todo.place} -1`);
-          todo.place -= 1;
-        } else {
-          console.log('Letting todo in 0', todo.description);
-        }
-      });
+      const replaceTodo = this.ToDos[newIndex];
+
+      replaceTodo.place--;
+
+      const movedTodo = this.ToDos[newIndex - 1];
+
+      this.ToDos = [
+        ...this.ToDos.slice(0, newIndex - 1),
+        replaceTodo,
+        movedTodo,
+        ...this.ToDos.slice(newIndex + 1),
+      ];
     } else {
-      this.ToDos.slice(newIndex + 1).forEach((todo, i, arr) => {
-        if (i !== arr.length - 1) {
-          todo.place += 1;
-        }
-      });
+      const replaceTodo = this.ToDos[newIndex];
+
+      replaceTodo.place++;
+
+      const movedTodo = this.ToDos[newIndex + 1];
+
+      this.ToDos = [
+        ...this.ToDos.slice(0, newIndex),
+        movedTodo,
+        replaceTodo,
+        ...this.ToDos.slice(newIndex + 2),
+      ];
     }
   }
 
@@ -86,25 +101,24 @@ export default class ToDoStore {
     }
   }
 
-  async reorderInStore(id: string, newPlace: number) {
-    const index = this.ToDos.findIndex(todo => todo.id === id);
-    if (index === -1) return console.error("Coulnd't find Todo with id => ", id);
+  async chageOrderInStore(id: string, direction: VerticalDirection) {
+    const todoIndex = this.ToDos.findIndex(todo => todo.id === id);
+    if (todoIndex === -1) return console.error("Coulnd't find Todo with id => ", id);
 
-    const currentPlace = this.ToDos[index].place;
-    let direction: VerticalDirection;
+    const todo = this.ToDos[todoIndex];
+    const newIndex = direction === VerticalDirection.Down ? todoIndex + 1 : todoIndex - 1;
 
-    if (currentPlace < newPlace) {
-      direction = VerticalDirection.Down;
-    } else {
-      direction = VerticalDirection.Up;
-    }
+    const replacedTodo = this.ToDos[newIndex];
+    if (!replacedTodo)
+      return console.error(
+        "Couldn't find Todo to replace place with in index => ",
+        newIndex
+      );
 
-    const replacedIndex = this.ToDos.findIndex(todo => todo.place === newPlace);
-    if (replacedIndex === -1)
-      console.error("Couldn't find Todo with place => ", newPlace);
-
-    this._changePlace(replacedIndex, newPlace, direction);
-    await this.editInStore(id, { place: newPlace });
+    await this.editInStore(id, { place: replacedTodo.place });
+    //From: Inclusive
+    // Direction: Define si sube o baja, si sube va sumando 1 y si baja va restando 1
+    this._changePlaces(newIndex, direction);
   }
 
   async deleteTodo(id: string) {
