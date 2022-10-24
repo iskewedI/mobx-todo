@@ -19,7 +19,8 @@ it('should render the component without any unexpected error', async () => {
     place: 1,
   };
 
-  render(<ToDo {...data} store={new ToDoStore()} index={0} />);
+  // render(<ToDo {...data} store={new ToDoStore()} index={0} />);
+  render(<ToDo {...data} index={0} />);
 
   const completedButton = screen.getAllByRole('button')[0];
 
@@ -43,7 +44,7 @@ it("should call the button methods if they're pressed", async () => {
 
   render(
     <ToDo
-      store={new ToDoStore()}
+      // store={new ToDoStore()}
       index={0}
       {...data}
       id='asdasd'

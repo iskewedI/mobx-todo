@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, configure } from 'mobx';
+import { makeObservable, observable, action, configure, makeAutoObservable } from 'mobx';
 import { addNewToDo, deleteTodo, editToDo, getToDoList } from '../server/ToDoApi';
 import { VerticalDirection } from '../types/enums';
 
@@ -9,19 +9,7 @@ export default class ToDoStore {
   ToDos: ToDoModel[] = [];
 
   constructor() {
-    makeObservable(this, {
-      ToDos: observable,
-      init: action,
-      addToStore: action,
-      editInStore: action,
-      getToDos: action,
-      createToDo: action,
-      editToDo: action,
-      _remove: action,
-      deleteTodo: action,
-      chageOrderInStore: action,
-      _changePlaces: action,
-    });
+    makeAutoObservable(this);
   }
 
   async init() {

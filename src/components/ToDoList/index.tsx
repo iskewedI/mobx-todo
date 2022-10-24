@@ -1,18 +1,16 @@
 import { observer } from 'mobx-react-lite';
-import ToDoStore from '../../store/ToDoStore';
 import ToDo from '../ToDo';
 import FormInput from '../FormInput';
 import './ToDoList.css';
+import { useStore } from '../../stores';
 
-interface Props {
-  store: ToDoStore;
-}
+const ToDoList = observer(() => {
+  const todoStore = useStore('toDoStore');
 
-const ToDoList = observer(({ store }: Props) => {
-  const orderedTodos = [...store.ToDos].sort((a, b) => a.place - b.place);
+  const orderedTodos = [...todoStore.ToDos].sort((a, b) => a.place - b.place);
 
   const handleNewToDo = (newValue: string) => {
-    store.createToDo(newValue, false);
+    todoStore.createToDo(newValue, false);
   };
 
   return (
@@ -28,7 +26,7 @@ const ToDoList = observer(({ store }: Props) => {
       {orderedTodos.map((todo, i) => (
         <div key={todo.id} className='todo-container'>
           <div>
-            <ToDo {...todo} store={store} index={i} />
+            <ToDo {...todo} index={i} />
           </div>
         </div>
       ))}
