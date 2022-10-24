@@ -3,15 +3,24 @@ import ToDo from '../ToDo';
 import FormInput from '../FormInput';
 import './ToDoList.css';
 import { useStore } from '../../stores';
+import { useState } from 'react';
 
 const ToDoList = observer(() => {
-  const todoStore = useStore('toDoStore');
+  const [filter, setFilter] = useState('');
 
-  const orderedTodos = [...todoStore.ToDos].sort((a, b) => a.place - b.place);
+  const todoStore = useStore('toDoStore');
 
   const handleNewToDo = (newValue: string) => {
     todoStore.createToDo(newValue, false);
   };
+
+  const handleFilter = (search: string | undefined) => {
+    setFilter(search || '');
+  };
+
+  const orderedTodos = [...todoStore.ToDos].sort((a, b) => a.place - b.place);
+
+  const filteredTodos = orderedTodos.filter(todo => todo.description.startsWith(filter));
 
   return (
     <div className='todo-list'>
@@ -23,13 +32,15 @@ const ToDoList = observer(() => {
         <h3>Action</h3>
       </div>
 
-      {orderedTodos.map((todo, i) => (
+      {filteredTodos.map((todo, i) => (
         <div key={todo.id} className='todo-container'>
           <div>
             <ToDo {...todo} index={i} />
           </div>
         </div>
       ))}
+
+      <FormInput title='Filter' debounce={true} debounceMs={70} onChange={handleFilter} />
     </div>
   );
 });
