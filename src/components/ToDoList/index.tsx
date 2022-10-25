@@ -20,7 +20,9 @@ const ToDoList = observer(() => {
 
   const orderedTodos = [...todoStore.ToDos].sort((a, b) => a.place - b.place);
 
-  const filteredTodos = orderedTodos.filter(todo => todo.description.startsWith(filter));
+  const filteredTodos = orderedTodos.filter(todo =>
+    todo.description.toLowerCase().startsWith(filter.toLowerCase())
+  );
 
   return (
     <div className='todo-list'>
