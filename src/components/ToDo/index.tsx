@@ -24,7 +24,7 @@ const ToDo = observer(({ id, index, description, isCompleted }: Props) => {
     store.editInStore(id, { isCompleted: !isCompleted });
   };
 
-  const handleDescriptionChange = () => {
+  const handleDescriptionChange = (description: string) => {
     store.editInStore(id, { description });
   };
 
@@ -53,7 +53,7 @@ const ToDo = observer(({ id, index, description, isCompleted }: Props) => {
         <EditableText
           containerClasses='todo__description__text'
           text={description}
-          onChange={handleDescriptionChange}
+          onSubmit={handleDescriptionChange}
         />
       </div>
 
