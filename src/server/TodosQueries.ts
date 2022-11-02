@@ -21,7 +21,7 @@ export const CREATE_TODO = `
 `;
 
 export const EDIT_TODO = `
-  mutation EditTodo($id: String!, $data: EditInput) {
+  mutation EditTodo($id: String!, $data: EditTodoInput) {
     editTodo(id: $id, data: $data){
         id
         description

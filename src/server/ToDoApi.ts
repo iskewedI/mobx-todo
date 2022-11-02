@@ -1,10 +1,6 @@
 import axios from 'axios';
-import { CREATE_TODO, DELETE_TODO, EDIT_TODO, FETCH_TODOS } from './TemplatesQL';
-
-const todosEndpoint = `${process.env.REACT_APP_BACKEND}/todos`;
-const headers = {
-  'Content-Type': 'application/json',
-};
+import { todosEndpoint, axiosBaseConfig } from './ApiConfig';
+import { CREATE_TODO, DELETE_TODO, EDIT_TODO, FETCH_TODOS } from './TodosQueries';
 
 export const getToDoList = async () => {
   const query = {
@@ -16,10 +12,13 @@ export const getToDoList = async () => {
   try {
     const {
       data: { data },
-    } = await axios.post<FetchTodosResponse>(todosEndpoint, {
-      headers,
-      ...query,
-    });
+    } = await axios.post<FetchTodosResponse>(
+      todosEndpoint,
+      {
+        ...query,
+      },
+      axiosBaseConfig
+    );
 
     return data.todos;
   } catch (error) {
@@ -46,10 +45,7 @@ export const addNewToDo = async (description: string, isCompleted: boolean) => {
   try {
     const {
       data: { data, errors },
-    } = await axios.post<CreateTodoResponse>(todosEndpoint, {
-      headers,
-      ...query,
-    });
+    } = await axios.post<CreateTodoResponse>(todosEndpoint, query, axiosBaseConfig);
 
     if (errors) {
       throw new Error(errors.message);
@@ -80,10 +76,7 @@ export const editToDo = async (id: string, data: Partial<ToDoModel>) => {
   try {
     const {
       data: { data, errors },
-    } = await axios.post<EditTodoResponse>(todosEndpoint, {
-      headers,
-      ...query,
-    });
+    } = await axios.post<EditTodoResponse>(todosEndpoint, query, axiosBaseConfig);
 
     if (errors) {
       throw new Error(errors.message);
@@ -114,10 +107,7 @@ export const deleteTodo = async (id: string) => {
   try {
     const {
       data: { data, errors },
-    } = await axios.post<DeleteTodoResponse>(todosEndpoint, {
-      headers,
-      ...query,
-    });
+    } = await axios.post<DeleteTodoResponse>(todosEndpoint, query, axiosBaseConfig);
 
     if (errors) {
       throw new Error(errors.message);

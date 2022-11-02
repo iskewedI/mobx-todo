@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import useDebounce from '../../hooks/useDebounce';
+import useDebounce from '../../util/hooks/useDebounce';
 import './FormInput.css';
 
 interface Props {

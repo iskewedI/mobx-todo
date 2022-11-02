@@ -1,5 +1,5 @@
-import { makeObservable, observable, action, configure, makeAutoObservable } from 'mobx';
-import { addNewToDo, deleteTodo, editToDo, getToDoList } from '../server/ToDoApi';
+import { configure, makeAutoObservable } from 'mobx';
+import { addNewToDo, deleteTodo, editToDo } from '../server/ToDoApi';
 import { VerticalDirection } from '../types/enums';
 
 // State always needs to be changed through actions, which in practice also includes creation.
@@ -12,12 +12,7 @@ export default class ToDoStore {
     makeAutoObservable(this);
   }
 
-  async init() {
-    const response = await getToDoList();
-    if (response) {
-      this.addToStore(...response);
-    }
-  }
+  async init() {}
 
   addToStore(...todos: ToDoModel[]) {
     const newTodos = [...this.ToDos, ...todos];
@@ -25,6 +20,10 @@ export default class ToDoStore {
     newTodos.sort((a, b) => a.place - b.place);
 
     this.ToDos = newTodos;
+  }
+
+  clearStore() {
+    this.ToDos = [];
   }
 
   getToDos() {
@@ -93,7 +92,6 @@ export default class ToDoStore {
     const todoIndex = this.ToDos.findIndex(todo => todo.id === id);
     if (todoIndex === -1) return console.error("Coulnd't find Todo with id => ", id);
 
-    const todo = this.ToDos[todoIndex];
     const newIndex = direction === VerticalDirection.Down ? todoIndex + 1 : todoIndex - 1;
 
     const replacedTodo = this.ToDos[newIndex];
@@ -104,8 +102,8 @@ export default class ToDoStore {
       );
 
     await this.editInStore(id, { place: replacedTodo.place });
-    //From: Inclusive
-    // Direction: Define si sube o baja, si sube va sumando 1 y si baja va restando 1
+    // From: Inclusive
+    // Direction: It defines if it goes up or down, going up it goes adding up by 1 y and if going down it goes substracting by 1
     this._changePlaces(newIndex, direction);
   }
 

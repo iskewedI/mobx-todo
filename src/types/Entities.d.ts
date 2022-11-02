@@ -1,17 +1,31 @@
-declare interface ToDoModel {
+// API
+interface FetchApiResponse<T> {
+  data: {
+    [P in keyof T]: T[P];
+  };
+  errors?: ApiError[];
+}
+
+interface ApiError {
+  locations: unknown[];
+  message: string;
+  path: string[];
+}
+
+interface ToDoModel {
   id: string;
   description: string;
   isCompleted: boolean;
   place: number;
 }
 
-declare interface FetchTodosResponse {
+interface FetchTodosResponse {
   data: {
     todos: ToDoModel[];
   };
 }
 
-declare interface CreateTodoResponse {
+interface CreateTodoResponse {
   data: {
     createTodo: ToDoModel;
   };
@@ -19,7 +33,7 @@ declare interface CreateTodoResponse {
   errors: Error;
 }
 
-declare interface EditTodoResponse {
+interface EditTodoResponse {
   data: {
     editTodo: ToDoModel;
   };
@@ -27,7 +41,7 @@ declare interface EditTodoResponse {
   errors: Error;
 }
 
-declare interface DeleteTodoResponse {
+interface DeleteTodoResponse {
   data: {
     deleteTodo: { success: Boolean };
   };
@@ -35,31 +49,35 @@ declare interface DeleteTodoResponse {
   errors: Error;
 }
 
-declare interface GrabableElementSet {
+interface GrabableElementSet {
   [id: string]: GrabableElement;
 }
 
-declare interface Position {
+interface Position {
   x: number;
   y: number;
 }
 
-declare interface GrabableElement extends Position {
+interface GrabableElement extends Position {
   middle: number;
   id: string;
 }
 
-declare interface PassingElement {
+interface PassingElement {
   element: GrabableElement;
   from: VerticalPosition;
 }
 
-declare interface GrabbingData {
+interface GrabbingData {
   target: GrabableElement | null;
   lastPassingElement?: PassingElement;
   assumedDirection?: VerticalDirection;
 }
 
-declare type Error = {
+type Error = {
   message: String;
 };
+
+interface Cookies {
+  All: Map<string, string>;
+}

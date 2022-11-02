@@ -1,11 +1,16 @@
 import React from 'react';
 import ToDoStore from './store/ToDoStore';
+import UserStore from './store/UserStore';
 
 const toDoStore = new ToDoStore();
 toDoStore.init();
 
+const userStore = new UserStore();
+userStore.init();
+
 export const stores = Object.freeze({
   toDoStore,
+  userStore,
 });
 
 export const storesContext = React.createContext(stores);
