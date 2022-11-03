@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import ToDo from '../ToDo';
 import FormInput from '../FormInput';
 import './ToDoList.css';
-import { useStore } from '../../stores';
+import { useStore } from '../../startup/getStores';
 import { useState } from 'react';
 
 const ToDoList = observer(() => {

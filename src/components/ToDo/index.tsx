@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { EditableText } from 'new-era-components';
 import ToDoStore from '../../store/ToDoStore';
-import { useStore } from '../../stores';
+import { useStore } from '../../startup/getStores';
 import { VerticalDirection } from '../../types/enums';
 import ButtonArrow from '../common/ButtonArrow';
 import './ToDo.css';

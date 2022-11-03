@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import ToDoList from './ToDoList';
-import AuthForm from './AuthForm';
-import { useStore } from '../stores';
-import { LogOut, QueryUser } from '../server/UserApi';
+import ToDoList from '../ToDoList';
+import AuthForm from '../AuthForm';
+import { useStore } from '../../startup/getStores';
+import { LogOut, QueryUser } from '../../server/UserApi';
 import './App.css';
 
 const App = () => {

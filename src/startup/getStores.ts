@@ -1,6 +1,6 @@
 import React from 'react';
-import ToDoStore from './store/ToDoStore';
-import UserStore from './store/UserStore';
+import ToDoStore from '../store/ToDoStore';
+import UserStore from '../store/UserStore';
 
 const toDoStore = new ToDoStore();
 toDoStore.init();

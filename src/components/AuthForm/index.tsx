@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Form, Formik, FormikHelpers, Field } from 'formik';
-import { useStore } from '../../stores';
+import { useStore } from '../../startup/getStores';
 import { FormOptions } from '../../types/enums';
 import './AuthForm.css';
 
