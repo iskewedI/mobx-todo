@@ -45,10 +45,10 @@ export default class UserStore {
     this.setUser({ name: user.name, email }, true);
   }
 
-  async register(userName: string, email: string, password: string) {
+  async register(userName: string, email: string, password: string): Promise<Result> {
     const result = await Register(userName, email, password);
-    if (!result) return;
+    if (!result) return { success: false };
 
-    this.setUser({ email: result.email });
+    return { success: true };
   }
 }

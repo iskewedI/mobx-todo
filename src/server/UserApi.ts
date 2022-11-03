@@ -10,7 +10,11 @@ const axiosBaseConfig = {
   withCredentials: true,
 };
 
-export const Register = async (name: string, email: string, password: string) => {
+export const Register = async (
+  name: string,
+  email: string,
+  password: string
+): Promise<Result> => {
   const query = {
     operationName: 'newUser',
     query: REGISTER_USER,
@@ -19,20 +23,26 @@ export const Register = async (name: string, email: string, password: string) =>
 
   try {
     const {
-      data: { data, errors },
+      data: { errors },
     } = await axios.post<FetchApiResponse<RegisterUserResponse>>(
       todosEndpoint,
       query,
       axiosBaseConfig
     );
 
-    return data.createUser;
+    if (errors) {
+      throw new Error('GQL call came with errors => ' + errors[0].message);
+    }
+
+    return { success: true };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return console.error('Service error trying to auth user => ', error.message, error);
+      console.error('Service error trying to auth user => ', error.message, error);
     }
 
     console.error('Unexpected error trying to auth the user => ', error);
+
+    return { success: false };
   }
 };
 

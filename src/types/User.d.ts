@@ -4,8 +4,20 @@ type User = {
   todos: [ToDoModel];
 };
 
+type UserData = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 type AuthData = {
   authenticated: boolean;
+};
+
+// LogIn - Register modal
+type ModalState = {
+  open: Boolean;
+  currentOption: FormOptions;
 };
 
 // API

@@ -1,32 +1,13 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
+import { Form, Formik, FormikHelpers, Field } from 'formik';
 import { useStore } from '../../stores';
+import { FormOptions } from '../../types/enums';
 import './AuthForm.css';
-
-enum FormOptions {
-  LogIn = 1,
-  Register,
-}
-
-type ModalState = {
-  open: Boolean;
-  currentOption: FormOptions;
-};
-
-type UserData = {
-  name?: string;
-  email?: string;
-  password?: string;
-};
 
 const AuthForm = () => {
   const [modalState, setModalState] = useState<ModalState>({
     open: false,
     currentOption: FormOptions.LogIn,
-  });
-  const [currentValues, setCurrentValues] = useState<UserData>({
-    name: '',
-    email: '',
-    password: '',
   });
 
   const userStore = useStore('userStore');
@@ -39,8 +20,11 @@ const AuthForm = () => {
     setModalState(state => ({ ...state, open: !state.open }));
   };
 
-  const handleAuth = async () => {
-    const { name, email, password } = currentValues;
+  const handleSubmit = async (
+    { name, email, password }: UserData,
+    { setSubmitting }: FormikHelpers<UserData>
+  ) => {
+    setSubmitting(false);
 
     if (modalState.currentOption === FormOptions.LogIn) {
       if (!email || !password) return;
@@ -49,29 +33,18 @@ const AuthForm = () => {
     } else {
       if (!name || !email || !password) return;
 
-      await userStore.register(name, email, password);
+      const result = await userStore.register(name, email, password);
 
-      setCurrentValues(values => ({ ...values, name: '' }));
+      if (result.success) {
+        userStore.logIn(email, password);
+      }
 
       setModalState(state => ({
         ...state,
-        open: true,
-        currentOption: FormOptions.LogIn,
+        open: false,
       }));
     }
   };
-
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-
-    handleAuth();
-  };
-
-  const handleChange = (value: string, field: string) => {
-    setCurrentValues(state => ({ ...state, [field]: value }));
-  };
-
-  const { name, email, password } = currentValues;
 
   return (
     <>
@@ -86,40 +59,38 @@ const AuthForm = () => {
               Register
             </button>
           </div>
-          <form className='form' onSubmit={handleSubmit}>
-            {modalState.currentOption === FormOptions.Register && (
+          <Formik
+            onSubmit={handleSubmit}
+            initialValues={{ name: '', email: '', password: '' }}
+          >
+            <Form className='form'>
+              {modalState.currentOption === FormOptions.Register && (
+                <>
+                  <label htmlFor='name'>User: </label>
+                  <Field id='user' name='name' placeholder='User name' />
+                </>
+              )}
+
               <>
-                <label>User</label>
-                <input
-                  autoFocus={true}
-                  placeholder='Write your user name...'
-                  value={name}
-                  onChange={evt => handleChange(evt.currentTarget.value, 'name')}
+                <label htmlFor='email'>Email: </label>
+                <Field id='email' name='email' placeholder='Email adress' type='email' />
+              </>
+
+              <>
+                <label htmlFor='password'>Password: </label>
+                <Field
+                  id='password'
+                  name='password'
+                  placeholder='Password'
+                  type='password'
                 />
               </>
-            )}
-            <>
-              <label>Email</label>
-              <input
-                autoFocus={modalState.currentOption === FormOptions.LogIn}
-                placeholder='Write your email...'
-                value={email}
-                onChange={evt => handleChange(evt.currentTarget.value, 'email')}
-              />
-            </>
-            <>
-              <label>Password</label>
-              <input
-                placeholder='Password here...'
-                value={password}
-                type='password'
-                onChange={evt => handleChange(evt.currentTarget.value, 'password')}
-              />
-            </>
-            <button onClick={handleAuth} type='submit'>
-              {modalState.currentOption === FormOptions.LogIn ? 'Log-In' : 'Register'}{' '}
-            </button>
-          </form>
+
+              <button type='submit'>
+                {modalState.currentOption === FormOptions.LogIn ? 'Log-In' : 'Register'}
+              </button>
+            </Form>
+          </Formik>
         </div>
       )}
     </>

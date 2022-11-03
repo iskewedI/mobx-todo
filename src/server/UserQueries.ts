@@ -16,7 +16,7 @@ export const GET_USER = `
 export const REGISTER_USER = `
   mutation newUser($name: String, $email: String, $password: String) {
     createUser(name: $name, email: $email, password: $password){
-      email
+      name
     }
   }
 `;

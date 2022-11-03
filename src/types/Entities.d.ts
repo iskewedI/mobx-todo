@@ -12,6 +12,10 @@ interface ApiError {
   path: string[];
 }
 
+type Result = {
+  success: boolean;
+};
+
 interface ToDoModel {
   id: string;
   description: string;
@@ -43,7 +47,7 @@ interface EditTodoResponse {
 
 interface DeleteTodoResponse {
   data: {
-    deleteTodo: { success: Boolean };
+    deleteTodo: Result;
   };
 
   errors: Error;

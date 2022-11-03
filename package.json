@@ -10,6 +10,7 @@
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "axios": "^0.27.2",
+    "formik": "^2.2.9",
     "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
     "new-era-components": "^1.1.7",
