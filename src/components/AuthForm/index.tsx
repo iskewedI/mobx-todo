@@ -1,96 +1,36 @@
 import { useState } from 'react';
-import { Form, Formik, FormikHelpers, Field } from 'formik';
-import { useStore } from '../../startup/getStores';
-import { FormOptions } from '../../types/enums';
+import { FormType } from '../../types/enums';
 import './AuthForm.css';
+import Form from './Form';
 
 const AuthForm = () => {
   const [modalState, setModalState] = useState<ModalState>({
     open: false,
-    currentOption: FormOptions.LogIn,
+    currentFormType: FormType.LogIn,
   });
-
-  const userStore = useStore('userStore');
-
-  const handleFormOptionChange = (newOption: FormOptions) => {
-    setModalState(state => ({ ...state, currentOption: newOption }));
-  };
 
   const handleAuthenticateClick = () => {
     setModalState(state => ({ ...state, open: !state.open }));
   };
 
-  const handleSubmit = async (
-    { name, email, password }: UserData,
-    { setSubmitting }: FormikHelpers<UserData>
-  ) => {
-    setSubmitting(false);
-
-    if (modalState.currentOption === FormOptions.LogIn) {
-      if (!email || !password) return;
-
-      userStore.logIn(email, password);
-    } else {
-      if (!name || !email || !password) return;
-
-      const result = await userStore.register(name, email, password);
-
-      if (result.success) {
-        userStore.logIn(email, password);
-      }
-
-      setModalState(state => ({
-        ...state,
-        open: false,
-      }));
-    }
+  const handleFormOptionChange = (newType: FormType) => {
+    setModalState(state => ({ ...state, currentFormType: newType }));
   };
 
   return (
     <>
       <button onClick={handleAuthenticateClick}>Authenticate</button>
       {modalState.open && (
-        <div>
+        <div
+          style={{ position: 'absolute', background: 'white', border: '1px solid black' }}
+        >
           <div className='form-header'>
-            <button onClick={() => handleFormOptionChange(FormOptions.LogIn)}>
-              Log-In
-            </button>
-            <button onClick={() => handleFormOptionChange(FormOptions.Register)}>
+            <button onClick={() => handleFormOptionChange(FormType.LogIn)}>Log-In</button>
+            <button onClick={() => handleFormOptionChange(FormType.Register)}>
               Register
             </button>
           </div>
-          <Formik
-            onSubmit={handleSubmit}
-            initialValues={{ name: '', email: '', password: '' }}
-          >
-            <Form className='form'>
-              {modalState.currentOption === FormOptions.Register && (
-                <>
-                  <label htmlFor='name'>User: </label>
-                  <Field id='user' name='name' placeholder='User name' />
-                </>
-              )}
-
-              <>
-                <label htmlFor='email'>Email: </label>
-                <Field id='email' name='email' placeholder='Email adress' type='email' />
-              </>
-
-              <>
-                <label htmlFor='password'>Password: </label>
-                <Field
-                  id='password'
-                  name='password'
-                  placeholder='Password'
-                  type='password'
-                />
-              </>
-
-              <button type='submit'>
-                {modalState.currentOption === FormOptions.LogIn ? 'Log-In' : 'Register'}
-              </button>
-            </Form>
-          </Formik>
+          <Form type={modalState.currentFormType} />
         </div>
       )}
     </>

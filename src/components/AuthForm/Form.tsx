@@ -1,0 +1,103 @@
+import { FormikHelpers, useFormik } from 'formik';
+import TextField from '@mui/material/TextField';
+import { FormType } from '../../types/enums';
+import { useStore } from '../../startup/getStores';
+import * as yup from 'yup';
+
+type FormProps = {
+  type: FormType;
+};
+
+const validationSchema = yup.object({
+  name: yup
+    .string()
+    .min(4, 'User name should be of minimum 4 characters length')
+    .required('User name is required')
+    .default('Enter your user name'),
+  email: yup
+    .string()
+    .email('Enter a valid email')
+    .required('Email is required')
+    .default('Enter your email'),
+  password: yup
+    .string()
+    .min(8, 'Password should be of minimum 8 characters length')
+    .required('Password is required')
+    .default('Enter your password'),
+});
+
+const Form = ({ type }: FormProps) => {
+  const handleSubmit = async (
+    { name, email, password }: UserData,
+    { setSubmitting }: FormikHelpers<UserData>
+  ) => {
+    setSubmitting(false);
+
+    if (type === FormType.LogIn) {
+      if (!email || !password) return;
+
+      userStore.logIn(email, password);
+    } else {
+      if (!name || !email || !password) return;
+
+      const result = await userStore.register(name, email, password);
+
+      if (result.success) {
+        userStore.logIn(email, password);
+      }
+    }
+  };
+  const userStore = useStore('userStore');
+
+  const formik = useFormik({
+    initialValues: { name: '', email: '', password: '' },
+    onSubmit: handleSubmit,
+    validationSchema,
+  });
+
+  const { values } = formik;
+
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      {type === FormType.Register && (
+        <TextField
+          onChange={formik.handleChange}
+          fullWidth
+          id='name'
+          name='name'
+          label='User name'
+          value={values.name}
+          error={formik.touched.name && Boolean(formik.errors.name)}
+          helperText={formik.touched.name && formik.errors.name}
+        />
+      )}
+      <TextField
+        onChange={formik.handleChange}
+        fullWidth
+        id='email'
+        type='email'
+        name='email'
+        label='Email'
+        value={values.email}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
+      />
+
+      <TextField
+        onChange={formik.handleChange}
+        fullWidth
+        id='password'
+        type='password'
+        name='password'
+        label='Password'
+        value={values.password}
+        error={formik.touched.password && Boolean(formik.errors.password)}
+        helperText={formik.touched.password && formik.errors.password}
+      />
+
+      <button type='submit'>{type === FormType.LogIn ? 'Log-In' : 'Register'}</button>
+    </form>
+  );
+};
+
+export default Form;

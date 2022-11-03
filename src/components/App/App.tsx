@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import ToDoList from '../ToDoList';
-import AuthForm from '../AuthForm';
 import { useStore } from '../../startup/getStores';
 import { LogOut, QueryUser } from '../../server/UserApi';
 import './App.css';
+import Navbar from '../Navbar';
 
 const App = () => {
   const userStore = useStore('userStore');
@@ -36,6 +36,8 @@ const App = () => {
 
   return (
     <div className='app'>
+      <Navbar />
+      {/*
       <div className='navbar'>
         {User.authenticated && (
           <div>
@@ -44,7 +46,7 @@ const App = () => {
           </div>
         )}
         {!User.authenticated && <AuthForm />}
-      </div>
+      </div> */}
       <ToDoList />
     </div>
   );

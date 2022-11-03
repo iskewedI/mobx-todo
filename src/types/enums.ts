@@ -8,7 +8,7 @@ export enum VerticalPosition {
   Below,
 }
 
-export enum FormOptions {
+export enum FormType {
   LogIn = 1,
   Register,
 }
