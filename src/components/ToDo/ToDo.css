@@ -2,7 +2,7 @@
   display: flex;
   gap: 3rem;
   justify-content: space-between;
-  border: 1px solid rgba(81, 79, 79, 0.332);
+  border-bottom: 1px solid #514f4f55;
   padding: 0.2rem;
 }
 
@@ -20,6 +20,12 @@
   align-items: center;
 }
 
+.todo__description__text-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .todo__description__text {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -33,14 +39,6 @@
   font: inherit;
   outline: inherit;
   cursor: pointer;
-}
-
-.delete-button {
-  background-color: rgb(226, 77, 28);
-  color: white;
-  border-radius: 10%;
-  font-size: 10px;
-  padding: 0.2em;
 }
 
 .todo__arrows {

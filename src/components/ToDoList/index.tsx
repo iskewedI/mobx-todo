@@ -4,6 +4,7 @@ import FormInput from '../FormInput';
 import './ToDoList.css';
 import { useStore } from '../../startup/getStores';
 import { useState } from 'react';
+import { Typography } from '@mui/material';
 
 const ToDoList = observer(() => {
   const [filter, setFilter] = useState('');
@@ -28,19 +29,17 @@ const ToDoList = observer(() => {
     <div className='todo-list'>
       <FormInput title='Add' onSubmit={handleNewToDo} />
 
-      <div className='todo-list__header'>
-        <h3>Description</h3>
-        <h3>Completed</h3>
-        <h3>Action</h3>
-      </div>
+      <div className='todo-list__items'>
+        <Typography variant='h4'>Tasks</Typography>
 
-      {filteredTodos.map((todo, i) => (
-        <div key={todo.id} className='todo-container'>
-          <div>
-            <ToDo {...todo} index={i} />
+        {filteredTodos.map((todo, i) => (
+          <div key={todo.id} className='todo-container'>
+            <div>
+              <ToDo {...todo} index={i} />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <FormInput title='Filter' debounce={true} debounceMs={70} onChange={handleFilter} />
     </div>

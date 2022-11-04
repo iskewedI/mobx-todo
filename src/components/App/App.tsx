@@ -26,27 +26,9 @@ const App = () => {
     }
   }, [User.authenticated]);
 
-  const handleLogOut = async () => {
-    const result = await LogOut();
-
-    if (result && result.success) {
-      window.location.reload();
-    }
-  };
-
   return (
     <div className='app'>
       <Navbar />
-      {/*
-      <div className='navbar'>
-        {User.authenticated && (
-          <div>
-            <h2>{User.name}</h2>
-            <button onClick={handleLogOut}>Log out</button>
-          </div>
-        )}
-        {!User.authenticated && <AuthForm />}
-      </div> */}
       <ToDoList />
     </div>
   );

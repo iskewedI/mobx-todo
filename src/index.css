@@ -9,3 +9,22 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+.line-throught {
+  position: absolute;
+  height: 1.7px;
+  background-color: black;
+  border: none;
+  vertical-align: middle;
+  transition: opacity cubic-bezier(0.23, 0.39, 0.7, 0.11) 1s,
+    background-color cubic-bezier(0.2, 0.99, 0.78, 0.21) 1s;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.shown {
+  opacity: 1;
+  background-color: rgb(64, 231, 64);
+}

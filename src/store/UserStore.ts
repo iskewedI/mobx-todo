@@ -4,6 +4,8 @@ import { LogIn, QueryUser, Register } from '../server/UserApi';
 // State always needs to be changed through actions, which in practice also includes creation.
 configure({ enforceActions: 'always' });
 
+// TODO: Make sure the user is able to create "local todos" without being logged in, but write a message
+// encouraging him to create an account.
 export default class UserStore {
   User: Partial<User> & AuthData = {
     authenticated: false,

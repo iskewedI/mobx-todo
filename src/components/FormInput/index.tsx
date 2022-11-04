@@ -1,3 +1,4 @@
+import { Button, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import useDebounce from '../../util/hooks/useDebounce';
 import './FormInput.css';
@@ -22,24 +23,24 @@ const FormInput = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const debouncedValue = useDebounce(inputValue, debounceMs);
 
-  const handleAdd = (
+  const handleSubmit = (
     event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement>
   ) => {
     event.preventDefault();
 
     if (!onSubmit || typeof onSubmit !== 'function') return;
 
-    const inputValue = inputRef.current?.value;
-    if (!inputValue) return;
+    const inputRefValue = inputRef.current?.value;
+    if (!inputRefValue) return;
 
     inputRef.current.focus();
 
     setInputValue('');
 
-    onSubmit(inputValue);
+    onSubmit(inputRefValue);
   };
 
-  const handleChange = (evt: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (evt: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setInputValue(evt.currentTarget.value);
 
     if (!onChange || typeof onChange !== 'function') return;
@@ -57,9 +58,17 @@ const FormInput = ({
     callOnChange();
   }, [debouncedValue]);
   return (
-    <form className='form-input' onSubmit={handleAdd}>
-      <input ref={inputRef} onChange={handleChange} value={inputValue} />
-      <button onClick={handleAdd}>{title}</button>
+    <form className='form-input' onSubmit={handleSubmit}>
+      <TextField
+        fullWidth
+        inputRef={inputRef}
+        onChange={handleChange}
+        value={inputValue}
+        label={title}
+      />
+      <Button variant='outlined' onClick={handleSubmit}>
+        {title}
+      </Button>
     </form>
   );
 };

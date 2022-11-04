@@ -4,6 +4,7 @@ import { FormType } from '../../types/enums';
 import { useStore } from '../../startup/getStores';
 import * as yup from 'yup';
 import { RefObject } from 'react';
+import { Button } from '@mui/material';
 
 type FormProps = {
   type: FormType;
@@ -23,7 +24,7 @@ const validationSchema = yup.object({
     .default('Enter your email'),
   password: yup
     .string()
-    .min(8, 'Password should be of minimum 8 characters length')
+    .min(4, 'Password should be of minimum 8 characters length')
     .required('Password is required')
     .default('Enter your password'),
 });
@@ -61,46 +62,50 @@ const Form = ({ type, emailInputRef }: FormProps) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      {type === FormType.Register && (
+      <div className='form__inputs'>
+        {type === FormType.Register && (
+          <TextField
+            onChange={formik.handleChange}
+            fullWidth
+            id='name'
+            name='name'
+            label='User name'
+            value={values.name}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+            autoFocus={type === FormType.Register}
+          />
+        )}
         <TextField
           onChange={formik.handleChange}
           fullWidth
-          id='name'
-          name='name'
-          label='User name'
-          value={values.name}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
-          autoFocus={type === FormType.Register}
+          id='email'
+          type='email'
+          name='email'
+          label='Email'
+          value={values.email}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          autoFocus={type === FormType.LogIn}
+          inputRef={emailInputRef}
         />
-      )}
-      <TextField
-        onChange={formik.handleChange}
-        fullWidth
-        id='email'
-        type='email'
-        name='email'
-        label='Email'
-        value={values.email}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email && formik.errors.email}
-        autoFocus={type === FormType.LogIn}
-        inputRef={emailInputRef}
-      />
 
-      <TextField
-        onChange={formik.handleChange}
-        fullWidth
-        id='password'
-        type='password'
-        name='password'
-        label='Password'
-        value={values.password}
-        error={formik.touched.password && Boolean(formik.errors.password)}
-        helperText={formik.touched.password && formik.errors.password}
-      />
+        <TextField
+          onChange={formik.handleChange}
+          fullWidth
+          id='password'
+          type='password'
+          name='password'
+          label='Password'
+          value={values.password}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+        />
+      </div>
 
-      <button type='submit'>{type === FormType.LogIn ? 'Log-In' : 'Register'}</button>
+      <Button variant='contained' color='success' size='large' type='submit'>
+        {type === FormType.LogIn ? 'Log-In' : 'Register'}
+      </Button>
     </form>
   );
 };

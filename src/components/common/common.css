@@ -17,3 +17,9 @@
   cursor: initial;
   opacity: 0.2;
 }
+
+.remove-btn {
+  margin: 0.5rem !important;
+  width: 33px !important;
+  height: 30px !important;
+}

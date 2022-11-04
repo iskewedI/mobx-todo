@@ -1,10 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import { EditableText } from 'new-era-components';
-import ToDoStore from '../../store/ToDoStore';
 import { useStore } from '../../startup/getStores';
 import { VerticalDirection } from '../../types/enums';
 import ButtonArrow from '../common/ButtonArrow';
 import './ToDo.css';
+import RemoveButton from '../common/RemoveButton';
+import { getInchSizeFromText } from '../../util/math/calcs';
+import { Checkbox } from '@mui/material';
 
 interface Props {
   id: string;
@@ -50,19 +52,29 @@ const ToDo = observer(({ id, index, description, isCompleted }: Props) => {
             direction={VerticalDirection.Down}
           />
         </div>
-        <EditableText
-          containerClasses='todo__description__text'
-          text={description}
-          onSubmit={handleDescriptionChange}
+
+        <Checkbox
+          checked={isCompleted}
+          color='success'
+          size='small'
+          onClick={handleCheckClick}
         />
+
+        <div className='todo__description__text-container'>
+          <EditableText
+            containerClasses='todo__description__text'
+            text={description}
+            onSubmit={handleDescriptionChange}
+            enabled={!isCompleted}
+          />
+          <hr
+            style={{ width: getInchSizeFromText(description) }}
+            className={`line-throught ${isCompleted ? 'shown' : 'hidden'}`}
+          />
+        </div>
       </div>
 
-      <button className='todo-button' onClick={handleCheckClick}>
-        {isCompleted ? '☑' : '☐'}
-      </button>
-      <button className='todo-button delete-button' onClick={handleDelete}>
-        Delete
-      </button>
+      <RemoveButton onClick={handleDelete}></RemoveButton>
     </div>
   );
 });
