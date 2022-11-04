@@ -3,9 +3,11 @@ import TextField from '@mui/material/TextField';
 import { FormType } from '../../types/enums';
 import { useStore } from '../../startup/getStores';
 import * as yup from 'yup';
+import { RefObject } from 'react';
 
 type FormProps = {
   type: FormType;
+  emailInputRef: RefObject<HTMLDivElement>;
 };
 
 const validationSchema = yup.object({
@@ -26,7 +28,7 @@ const validationSchema = yup.object({
     .default('Enter your password'),
 });
 
-const Form = ({ type }: FormProps) => {
+const Form = ({ type, emailInputRef }: FormProps) => {
   const handleSubmit = async (
     { name, email, password }: UserData,
     { setSubmitting }: FormikHelpers<UserData>
@@ -69,6 +71,7 @@ const Form = ({ type }: FormProps) => {
           value={values.name}
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
+          autoFocus={type === FormType.Register}
         />
       )}
       <TextField
@@ -81,6 +84,8 @@ const Form = ({ type }: FormProps) => {
         value={values.email}
         error={formik.touched.email && Boolean(formik.errors.email)}
         helperText={formik.touched.email && formik.errors.email}
+        autoFocus={type === FormType.LogIn}
+        inputRef={emailInputRef}
       />
 
       <TextField

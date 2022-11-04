@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, createRef } from 'react';
 import { FormType } from '../../types/enums';
 import './AuthForm.css';
 import Form from './Form';
@@ -9,12 +9,18 @@ const AuthForm = () => {
     currentFormType: FormType.LogIn,
   });
 
+  const emailInputRef = createRef<HTMLDivElement>();
+
   const handleAuthenticateClick = () => {
     setModalState(state => ({ ...state, open: !state.open }));
   };
 
   const handleFormOptionChange = (newType: FormType) => {
     setModalState(state => ({ ...state, currentFormType: newType }));
+
+    if (newType === FormType.LogIn) {
+      emailInputRef.current?.focus();
+    }
   };
 
   return (
@@ -30,7 +36,7 @@ const AuthForm = () => {
               Register
             </button>
           </div>
-          <Form type={modalState.currentFormType} />
+          <Form type={modalState.currentFormType} emailInputRef={emailInputRef} />
         </div>
       )}
     </>
