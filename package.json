@@ -52,7 +52,6 @@
   },
   "devDependencies": {
     "@testing-library/react": "^13.4.0",
-    "@types/styled-components": "^5.1.26",
-    "@types/yup": "^0.32.0"
+    "@types/styled-components": "^5.1.26"
   }
 }
