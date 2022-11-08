@@ -7,12 +7,20 @@ type Props = {
   onClick?: () => void;
   disabled?: boolean;
   title?: string;
+  classes?: string;
 };
 
-const FabIcon = ({ icon, onClick, title, width = 12, disabled = false }: Props) => {
+const FabIcon = ({
+  icon,
+  onClick,
+  title,
+  width = 12,
+  disabled = false,
+  classes = '',
+}: Props) => {
   return (
     <Fab
-      className='fab-icon'
+      className={`${classes} fab-icon`}
       title={title}
       size='small'
       onClick={onClick}
