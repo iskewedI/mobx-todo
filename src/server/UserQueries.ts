@@ -3,6 +3,7 @@ export const GET_USER = `
     user {
       name
       email
+      points
       todos {
         id
         description

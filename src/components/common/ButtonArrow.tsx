@@ -11,10 +11,12 @@ type Props = {
 };
 
 const ButtonArrow = ({ direction, onClick, disabled = false, width = 12 }: Props) => {
+  const title = direction === VerticalDirection.Down ? 'Down arrow' : 'Up arrow';
+
   return (
     <button
       className={`unstyled arrow ${(!disabled && 'hoverable') || ''}`}
-      title={direction === VerticalDirection.Down ? 'Down arrow' : 'Up arrow'}
+      title={title}
       onClick={onClick}
       disabled={disabled}
     >
@@ -22,6 +24,7 @@ const ButtonArrow = ({ direction, onClick, disabled = false, width = 12 }: Props
         src={direction === VerticalDirection.Down ? DownArrow : UpArrow}
         width={width}
         height={width}
+        alt={title}
       />
     </button>
   );

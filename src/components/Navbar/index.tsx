@@ -1,4 +1,13 @@
-import { AppBar, Avatar, Box, Button, Toolbar, Tooltip, Typography } from '@mui/material';
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Fab,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { Container } from '@mui/system';
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
@@ -53,7 +62,7 @@ const Navbar = () => {
               variant='h6'
               noWrap
               component='a'
-              href=''
+              href='#'
               sx={{
                 flexGrow: 1,
                 textDecoration: 'none',
@@ -68,6 +77,11 @@ const Navbar = () => {
             {(!User.authenticated && <AuthForm />) ||
               (User.name && (
                 <UserOptions>
+                  <Tooltip title='Your points'>
+                    <Fab size='small' color='secondary'>
+                      {User.points}
+                    </Fab>
+                  </Tooltip>
                   <Tooltip title={`Logged in as ${User.name}`}>
                     <Avatar
                       sx={{ bgcolor: stringToColor(User.name.toLocaleUpperCase()) }}

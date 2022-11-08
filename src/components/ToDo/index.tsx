@@ -6,7 +6,7 @@ import ButtonArrow from '../common/ButtonArrow';
 import './ToDo.css';
 import FabIcon from '../common/FabIcon';
 import { getInchSizeFromText } from '../../util/math/calcs';
-import { Checkbox, Fade } from '@mui/material';
+import { Checkbox } from '@mui/material';
 import Cross from '../../static/images-svg/Cross.svg';
 
 interface Props {
@@ -59,6 +59,7 @@ const ToDo = observer(({ id, index, description, isCompleted }: Props) => {
           color='success'
           size='small'
           onClick={handleCheckClick}
+          title='Completed'
         />
 
         <div className='todo__description__text-container'>

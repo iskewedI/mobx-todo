@@ -6,11 +6,13 @@ configure({ enforceActions: 'always' });
 
 // TODO: Make sure the user is able to create "local todos" without being logged in, but write a message
 // encouraging him to create an account.
+// TODO: Loading state - With skeleton loading
 export default class UserStore {
   User: Partial<User> & AuthData = {
     authenticated: false,
     name: '',
     email: '',
+    points: 0,
   };
 
   constructor() {
@@ -29,6 +31,7 @@ export default class UserStore {
     this.User = {
       name: data.name || this.User.name,
       email: data.email || this.User.email,
+      points: data.points !== undefined ? data.points : this.User.points,
       authenticated:
         authenticated !== undefined ? authenticated : this.User.authenticated,
     };
@@ -44,7 +47,7 @@ export default class UserStore {
 
     const { user } = authData;
 
-    this.setUser({ name: user.name, email }, true);
+    this.setUser({ name: user.name, email, points: user.points }, true);
   }
 
   async register(userName: string, email: string, password: string): Promise<Result> {

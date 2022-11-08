@@ -1,6 +1,7 @@
 type User = {
   name: string;
   email: string;
+  points: number;
   todos: [ToDoModel];
 };
 
@@ -26,6 +27,7 @@ type AuthUserResponse = {
   user: {
     name: string;
     email: string;
+    points: number;
   };
 };
 

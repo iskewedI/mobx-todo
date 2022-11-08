@@ -26,7 +26,7 @@ const FabIcon = ({
       onClick={onClick}
       disabled={disabled}
     >
-      <img src={icon} width={width} height={width} />
+      <img src={icon} width={width} height={width} alt={title} />
     </Fab>
   );
 };
