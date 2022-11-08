@@ -1,0 +1,12 @@
+.expand-input {
+  display: flex;
+  gap: 0.8rem;
+  position: relative;
+  width: 100%;
+}
+
+.expand-input__input {
+  position: absolute;
+  left: 3rem;
+  width: 80%;
+}

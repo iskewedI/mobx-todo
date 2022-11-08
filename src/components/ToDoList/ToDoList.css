@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem;
+  margin: 2rem 1rem;
   width: 40vw;
   height: 70vh;
   align-content: space-around;
@@ -11,7 +11,7 @@
 .todo-list__header {
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  gap: 1rem;
 }
 
 .todo-container {
@@ -23,5 +23,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 2rem;
+  height: 100%;
+  margin: 1rem 2rem 1.5rem;
+  border: 1px solid #3e3e3e3a;
+  overflow-y: scroll;
 }

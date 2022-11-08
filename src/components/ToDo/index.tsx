@@ -4,9 +4,10 @@ import { useStore } from '../../startup/getStores';
 import { VerticalDirection } from '../../types/enums';
 import ButtonArrow from '../common/ButtonArrow';
 import './ToDo.css';
-import RemoveButton from '../common/RemoveButton';
+import FabIcon from '../common/FabIcon';
 import { getInchSizeFromText } from '../../util/math/calcs';
-import { Checkbox } from '@mui/material';
+import { Checkbox, Fade } from '@mui/material';
+import Cross from '../../static/images-svg/Cross.svg';
 
 interface Props {
   id: string;
@@ -74,7 +75,7 @@ const ToDo = observer(({ id, index, description, isCompleted }: Props) => {
         </div>
       </div>
 
-      <RemoveButton onClick={handleDelete}></RemoveButton>
+      <FabIcon icon={Cross} onClick={handleDelete} title='Remove'></FabIcon>
     </div>
   );
 });
