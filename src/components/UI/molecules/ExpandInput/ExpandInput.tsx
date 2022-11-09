@@ -1,15 +1,11 @@
 import { useState } from 'react';
-import FormInput from '../FormInput';
-import FabIcon from '../common/FabIcon';
 import Fade from '@mui/material/Fade';
-import Plus from '../../static/images-svg/Plus.svg';
+import FormInput from '../FormInput/FormInput';
+import FabIcon from '../../atoms/FabIcon/FabIcon';
+import Plus from '../../../../static/images-svg/Plus.svg';
 import './ExpandInput.css';
 
-type Props = {
-  onSubmit: (value: string) => void;
-};
-
-const ExpandInput = ({ onSubmit }: Props) => {
+const ExpandInput = ({ onSubmit }: ExpandInputProps) => {
   const [expanded, setExpanded] = useState<boolean>();
 
   return (

@@ -15,12 +15,6 @@ type AuthData = {
   authenticated: boolean;
 };
 
-// LogIn - Register modal
-type ModalState = {
-  open: boolean;
-  currentFormType: FormType;
-};
-
 // API
 type AuthUserResponse = {
   token: string;

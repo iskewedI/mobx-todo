@@ -1,22 +1,15 @@
 import { observer } from 'mobx-react-lite';
-import { EditableText } from 'new-era-components';
-import { useStore } from '../../startup/getStores';
-import { VerticalDirection } from '../../types/enums';
-import ButtonArrow from '../common/ButtonArrow';
-import './ToDo.css';
-import FabIcon from '../common/FabIcon';
-import { getInchSizeFromText } from '../../util/math/calcs';
 import { Checkbox } from '@mui/material';
-import Cross from '../../static/images-svg/Cross.svg';
+import { EditableText } from 'new-era-components';
+import { useStore } from '../../../../startup/getStores';
+import { VerticalDirection } from '../../../../types/enums';
+import ButtonArrow from '../../atoms/ButtonArrow/ButtonArrow';
+import FabIcon from '../../atoms/FabIcon/FabIcon';
+import { getInchSizeFromText } from '../../../../util/math/calcs';
+import Cross from '../../../../static/images-svg/Cross.svg';
+import './ToDo.css';
 
-interface Props {
-  id: string;
-  description: string;
-  isCompleted: boolean;
-  index: number;
-}
-
-const ToDo = observer(({ id, index, description, isCompleted }: Props) => {
+const ToDo = observer(({ id, index, description, isCompleted }: ToDoProps) => {
   const todoStore = useStore('toDoStore');
   const userStore = useStore('userStore');
 

@@ -1,9 +1,3 @@
-.unstyled {
-  all: unset;
-  cursor: pointer;
-  border-radius: 25%;
-}
-
 .arrow {
   transition: background-color 0.1s ease-out;
   background-color: transparent;
@@ -16,10 +10,4 @@
 .arrow:disabled {
   cursor: initial;
   opacity: 0.2;
-}
-
-.fab-icon {
-  margin: 0.5rem !important;
-  width: 33px !important;
-  height: 30px !important;
 }

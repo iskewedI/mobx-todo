@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ToDo from '../index';
+import ToDo from '../ToDo';
 import { randomUUID } from 'crypto';
 import '@testing-library/jest-dom';
-import ToDoStore from '../../../store/ToDoStore';
+import ToDoStore from '../../../../../store/ToDoStore';
 
 const BUTTON_STATUS = {
   checked: '☑',

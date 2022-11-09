@@ -29,3 +29,9 @@ code {
   opacity: 1;
   background-color: rgb(64, 231, 64);
 }
+
+.unstyled {
+  all: unset;
+  cursor: pointer;
+  border-radius: 25%;
+}

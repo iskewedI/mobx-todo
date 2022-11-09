@@ -1,15 +1,10 @@
-import { FormikHelpers, useFormik } from 'formik';
-import TextField from '@mui/material/TextField';
-import { FormType } from '../../types/enums';
-import { useStore } from '../../startup/getStores';
-import * as yup from 'yup';
-import { RefObject } from 'react';
 import { Button } from '@mui/material';
-
-type FormProps = {
-  type: FormType;
-  emailInputRef: RefObject<HTMLDivElement>;
-};
+import TextField from '@mui/material/TextField';
+import { FormikHelpers, useFormik } from 'formik';
+import * as yup from 'yup';
+import { FormType } from '../../../../types/enums';
+import { useStore } from '../../../../startup/getStores';
+import './AuthForm.css';
 
 const validationSchema = yup.object({
   name: yup
@@ -29,7 +24,7 @@ const validationSchema = yup.object({
     .default('Enter your password'),
 });
 
-const Form = ({ type, emailInputRef }: FormProps) => {
+const AuthForm = ({ type, emailInputRef }: AuthFormProps) => {
   const handleSubmit = async (
     { name, email, password }: UserData,
     { setSubmitting }: FormikHelpers<UserData>
@@ -110,4 +105,4 @@ const Form = ({ type, emailInputRef }: FormProps) => {
   );
 };
 
-export default Form;
+export default AuthForm;

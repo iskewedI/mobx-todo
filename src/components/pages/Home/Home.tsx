@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import ToDoList from '../ToDoList';
-import { useStore } from '../../startup/getStores';
-import { LogOut, QueryUser } from '../../server/UserApi';
-import './App.css';
-import Navbar from '../Navbar';
+import ToDoList from '../../UI/organisms/ToDoList/ToDoList';
+import { useStore } from '../../../startup/getStores';
+import { QueryUser } from '../../../server/UserApi';
+import Navbar from '../../UI/organisms/Navbar/Navbar';
+import './Home.css';
 
-const App = () => {
+const Home = () => {
   const userStore = useStore('userStore');
   const todoStore = useStore('toDoStore');
 
@@ -24,14 +24,14 @@ const App = () => {
     if (User.authenticated) {
       getTodos();
     }
-  }, [User.authenticated]);
+  }, [User.authenticated, todoStore]);
 
   return (
-    <div className='app'>
+    <div className='home'>
       <Navbar />
       <ToDoList />
     </div>
   );
 };
 
-export default observer(App);
+export default observer(Home);

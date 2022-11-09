@@ -1,11 +1,11 @@
-import { observer } from 'mobx-react-lite';
-import ToDo from '../ToDo';
-import FormInput from '../FormInput';
-import './ToDoList.css';
-import { useStore } from '../../startup/getStores';
 import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Typography } from '@mui/material';
-import ExpandInput from '../ExpandInput';
+import ToDo from '../ToDo/ToDo';
+import FormInput from '../../molecules/FormInput/FormInput';
+import { useStore } from '../../../../startup/getStores';
+import ExpandInput from '../../molecules/ExpandInput/ExpandInput';
+import './ToDoList.css';
 
 const ToDoList = observer(() => {
   const [filter, setFilter] = useState('');

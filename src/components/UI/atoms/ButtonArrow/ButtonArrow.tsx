@@ -1,7 +1,7 @@
-import { VerticalDirection } from '../../types/enums';
-import UpArrow from '../../static/images-svg/UpArrow.svg';
-import DownArrow from '../../static/images-svg/DownArrow.svg';
-import './common.css';
+import { VerticalDirection } from '../../../../types/enums';
+import UpArrow from '../../../../static/images-svg/UpArrow.svg';
+import DownArrow from '../../../../static/images-svg/DownArrow.svg';
+import './ButtonArrow.css';
 
 type Props = {
   direction: VerticalDirection;

@@ -1,9 +1,8 @@
 import { Button, Modal, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import { useState, createRef } from 'react';
-import { FormType } from '../../types/enums';
-import './AuthForm.css';
-import Form from './Form';
+import { FormType } from '../../../../types/enums';
+import AuthForm from '../../molecules/AuthForm/AuthForm';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -17,7 +16,7 @@ const style = {
   p: 4,
 };
 
-const AuthForm = () => {
+const AuthModal = () => {
   const [modalState, setModalState] = useState<ModalState>({
     open: false,
     currentFormType: FormType.LogIn,
@@ -70,11 +69,11 @@ const AuthForm = () => {
               Register
             </Button>
           </div>
-          <Form type={currentFormType} emailInputRef={emailInputRef} />
+          <AuthForm type={currentFormType} emailInputRef={emailInputRef} />
         </Box>
       </Modal>
     </>
   );
 };
 
-export default AuthForm;
+export default AuthModal;

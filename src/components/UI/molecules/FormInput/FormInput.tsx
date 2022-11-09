@@ -1,16 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import useDebounce from '../../util/hooks/useDebounce';
+import useDebounce from '../../../../util/hooks/useDebounce';
 import './FormInput.css';
-
-interface Props {
-  title: string;
-  debounce?: boolean;
-  debounceMs?: number;
-  inputAutofocus?: boolean;
-  onSubmit?: (value: string) => void;
-  onChange?: (value: string | undefined) => void;
-}
 
 const FormInput = ({
   title,
@@ -19,7 +10,7 @@ const FormInput = ({
   inputAutofocus,
   onSubmit,
   onChange,
-}: Props) => {
+}: FormInputProps) => {
   const [inputValue, setInputValue] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -58,7 +49,7 @@ const FormInput = ({
     };
 
     callOnChange();
-  }, [debouncedValue]);
+  }, [debouncedValue, onChange]);
   return (
     <form className='form-input' onSubmit={handleSubmit}>
       <TextField

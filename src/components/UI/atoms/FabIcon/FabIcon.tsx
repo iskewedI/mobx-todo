@@ -1,15 +1,4 @@
 import { Fab, Tooltip } from '@mui/material';
-import './common.css';
-
-type Props = {
-  icon: string;
-  width?: number;
-  onClick?: () => void;
-  disabled?: boolean;
-  tooltip?: string;
-  title?: string;
-  classes?: string;
-};
 
 const FabIcon = ({
   icon,
@@ -19,12 +8,12 @@ const FabIcon = ({
   width = 12,
   disabled = false,
   classes = '',
-}: Props) => {
+}: FabIconProps) => {
   return (
     <Tooltip title={tooltip}>
       <Fab
-        className={`${classes} fab-icon`}
-        title={title}
+        style={{ margin: '0.5rem', width: '33px', height: '30px' }}
+        className={classes}
         size='small'
         onClick={onClick}
         disabled={disabled}

@@ -1,20 +1,11 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Fab,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { AppBar, Avatar, Box, Button, Toolbar, Tooltip, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
-import { LogOut } from '../../server/UserApi';
-import { useStore } from '../../startup/getStores';
-import { stringToColor } from '../../util/math/calcs';
-import AuthForm from '../AuthForm';
+import { LogOut } from '../../../../server/UserApi';
+import { useStore } from '../../../../startup/getStores';
+import { stringToColor } from '../../../../util/math/calcs';
+import AuthForm from '../AuthModal/AuthModal';
 
 const UserOptions = styled.div`
   display: flex;
@@ -53,26 +44,11 @@ const Navbar = () => {
               letterSpacing: '.2rem',
               color: 'inherit',
               textDecoration: 'none',
+              flexGrow: 1,
             }}
           >
             TODO LIST
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex' } }}>
-            <Typography
-              variant='h6'
-              noWrap
-              component='a'
-              href='#'
-              sx={{
-                flexGrow: 1,
-                textDecoration: 'none',
-                color: 'inherit',
-                marginLeft: 3,
-              }}
-            >
-              Home
-            </Typography>
-          </Box>
           <Box sx={{ flexGrow: 0 }}>
             {(!User.authenticated && <AuthForm />) ||
               (User.name && (
