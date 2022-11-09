@@ -40,3 +40,9 @@ type RegisterUserResponse = {
 type QueryUserResponse = {
   user: User;
 };
+
+type AddPointsResult = {
+  addPoints: {
+    currentPoints: number;
+  };
+};

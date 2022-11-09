@@ -21,3 +21,11 @@ export const REGISTER_USER = `
     }
   }
 `;
+
+export const ADD_PONTS = `
+  mutation AddPoints($amount: Int) {
+    addPoints(amount: $amount) {
+      currentPoints
+    }
+  }
+`;

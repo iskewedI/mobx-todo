@@ -26,7 +26,7 @@ const ExpandInput = ({ onSubmit }: Props) => {
           }}
         >
           <div className='expand-input__input'>
-            <FormInput title='Add' onSubmit={onSubmit} />
+            <FormInput title='Add' onSubmit={onSubmit} inputAutofocus={true} />
           </div>
         </Fade>
       )}

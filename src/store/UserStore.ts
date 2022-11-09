@@ -1,5 +1,5 @@
 import { configure, makeAutoObservable } from 'mobx';
-import { LogIn, QueryUser, Register } from '../server/UserApi';
+import { AddPoints, LogIn, QueryUser, Register } from '../server/UserApi';
 
 // State always needs to be changed through actions, which in practice also includes creation.
 configure({ enforceActions: 'always' });
@@ -55,5 +55,13 @@ export default class UserStore {
     if (!result) return { success: false };
 
     return { success: true };
+  }
+
+  async addPoints(amount: number) {
+    const result = await AddPoints(amount);
+
+    if (result) {
+      this.setUser({ points: result.currentPoints });
+    }
   }
 }

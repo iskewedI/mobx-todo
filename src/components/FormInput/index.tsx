@@ -7,6 +7,7 @@ interface Props {
   title: string;
   debounce?: boolean;
   debounceMs?: number;
+  inputAutofocus?: boolean;
   onSubmit?: (value: string) => void;
   onChange?: (value: string | undefined) => void;
 }
@@ -15,6 +16,7 @@ const FormInput = ({
   title,
   debounce = false,
   debounceMs = 300,
+  inputAutofocus,
   onSubmit,
   onChange,
 }: Props) => {
@@ -65,6 +67,7 @@ const FormInput = ({
         onChange={handleChange}
         value={inputValue}
         label={title}
+        autoFocus={inputAutofocus}
       />
       <Button variant='outlined' onClick={handleSubmit}>
         {title}

@@ -78,9 +78,15 @@ const Navbar = () => {
               (User.name && (
                 <UserOptions>
                   <Tooltip title='Your points'>
-                    <Fab size='small' color='secondary'>
+                    <Avatar
+                      sx={{
+                        bgcolor: `hsl(50deg 98% ${
+                          35 * ((User.points || 1) / 100)
+                        }% / 70%)`,
+                      }}
+                    >
                       {User.points}
-                    </Fab>
+                    </Avatar>
                   </Tooltip>
                   <Tooltip title={`Logged in as ${User.name}`}>
                     <Avatar

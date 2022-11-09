@@ -17,26 +17,31 @@ interface Props {
 }
 
 const ToDo = observer(({ id, index, description, isCompleted }: Props) => {
-  const store = useStore('toDoStore');
+  const todoStore = useStore('toDoStore');
+  const userStore = useStore('userStore');
 
   const handleOrderChange = (direction: VerticalDirection) => {
-    store.chageOrderInStore(id, direction);
+    todoStore.chageOrderInStore(id, direction);
   };
 
   const handleCheckClick = () => {
-    store.editInStore(id, { isCompleted: !isCompleted });
+    todoStore.editInStore(id, { isCompleted: !isCompleted });
   };
 
   const handleDescriptionChange = (description: string) => {
-    store.editInStore(id, { description });
+    todoStore.editInStore(id, { description });
   };
 
   const handleDelete = () => {
-    store.deleteTodo(id);
+    if (isCompleted) {
+      userStore.addPoints(2);
+    }
+
+    todoStore.deleteTodo(id);
   };
 
   const isFirst = index === 0;
-  const isLast = index === store.ToDos.length - 1;
+  const isLast = index === todoStore.ToDos.length - 1;
 
   return (
     <div className='todo'>
@@ -76,7 +81,12 @@ const ToDo = observer(({ id, index, description, isCompleted }: Props) => {
         </div>
       </div>
 
-      <FabIcon icon={Cross} onClick={handleDelete} title='Remove'></FabIcon>
+      <FabIcon
+        icon={Cross}
+        onClick={handleDelete}
+        title='Remove'
+        tooltip={'Remove task'}
+      ></FabIcon>
     </div>
   );
 });

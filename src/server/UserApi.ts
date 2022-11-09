@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER, REGISTER_USER } from './UserQueries';
+import { ADD_PONTS, GET_USER, REGISTER_USER } from './UserQueries';
 
 const authEndpoint = `${process.env.REACT_APP_BACKEND}/auth`;
 const todosEndpoint = `${process.env.REACT_APP_BACKEND}/todos`;
@@ -117,5 +117,40 @@ export const QueryUser = async () => {
     }
 
     console.error('Unexpected error trying to query the user => ', query, error);
+  }
+};
+
+export const AddPoints = async amount => {
+  const query = {
+    operationName: 'AddPoints',
+    query: ADD_PONTS,
+    variables: { amount },
+  };
+
+  try {
+    const {
+      data: { data, errors },
+    } = await axios.post<FetchApiResponse<AddPointsResult>>(
+      todosEndpoint,
+      query,
+      axiosBaseConfig
+    );
+
+    if (errors) {
+      return null;
+    }
+
+    return data.addPoints;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return console.error(
+        'Service error trying to add points to the user => ',
+        query,
+        error.message,
+        error
+      );
+    }
+
+    console.error('Unexpected error trying to add points to the user => ', query, error);
   }
 };
