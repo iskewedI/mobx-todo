@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { todosEndpoint, axiosBaseConfig } from './ApiConfig';
+import { todosEndpoint, axiosBaseConfig } from '../util/ApiConfig';
 import { CREATE_TODO, DELETE_TODO, EDIT_TODO, FETCH_TODOS } from './TodosQueries';
 
 export const getToDoList = async () => {

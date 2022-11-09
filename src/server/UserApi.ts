@@ -1,14 +1,6 @@
 import axios from 'axios';
 import { ADD_PONTS, GET_USER, REGISTER_USER } from './UserQueries';
-
-const authEndpoint = `${process.env.REACT_APP_BACKEND}/auth`;
-const todosEndpoint = `${process.env.REACT_APP_BACKEND}/todos`;
-const axiosBaseConfig = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-};
+import { todosEndpoint, authEndpoint, axiosBaseConfig } from '../util/ApiConfig';
 
 export const Register = async (
   name: string,

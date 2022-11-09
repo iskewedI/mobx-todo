@@ -6,7 +6,7 @@ import { VerticalDirection } from '../../../../types/enums';
 import ButtonArrow from '../../atoms/ButtonArrow/ButtonArrow';
 import FabIcon from '../../atoms/FabIcon/FabIcon';
 import { getInchSizeFromText } from '../../../../util/math/calcs';
-import Cross from '../../../../static/images-svg/Cross.svg';
+import Cross from '../../../../assets/images-svg/Cross.svg';
 import './ToDo.css';
 
 const ToDo = observer(({ id, index, description, isCompleted }: ToDoProps) => {

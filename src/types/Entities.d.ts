@@ -53,35 +53,6 @@ interface DeleteTodoResponse {
   errors: Error;
 }
 
-interface GrabableElementSet {
-  [id: string]: GrabableElement;
-}
-
-interface Position {
-  x: number;
-  y: number;
-}
-
-interface GrabableElement extends Position {
-  middle: number;
-  id: string;
-}
-
-interface PassingElement {
-  element: GrabableElement;
-  from: VerticalPosition;
-}
-
-interface GrabbingData {
-  target: GrabableElement | null;
-  lastPassingElement?: PassingElement;
-  assumedDirection?: VerticalDirection;
-}
-
 type Error = {
   message: String;
 };
-
-interface Cookies {
-  All: Map<string, string>;
-}
