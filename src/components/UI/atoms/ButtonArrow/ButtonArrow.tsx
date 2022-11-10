@@ -2,6 +2,7 @@ import { VerticalDirection } from '../../../../types/enums';
 import UpArrow from '../../../../assets/images-svg/UpArrow.svg';
 import DownArrow from '../../../../assets/images-svg/DownArrow.svg';
 import './ButtonArrow.css';
+import ImageSVG from '../ImageSVG/ImageSVG';
 
 type Props = {
   direction: VerticalDirection;
@@ -20,11 +21,10 @@ const ButtonArrow = ({ direction, onClick, disabled = false, width = 12 }: Props
       onClick={onClick}
       disabled={disabled}
     >
-      <img
+      <ImageSVG
         src={direction === VerticalDirection.Down ? DownArrow : UpArrow}
         width={width}
-        height={width}
-        alt={title}
+        title={title}
       />
     </button>
   );

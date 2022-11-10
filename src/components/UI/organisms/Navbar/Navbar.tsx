@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { LogOut } from '../../../../server/UserApi';
 import { useStore } from '../../../../startup/getStores';
 import { stringToColor } from '../../../../util/math/calcs';
+import UserPoints from '../../atoms/UserPoints/UserPoints';
 import AuthForm from '../AuthModal/AuthModal';
 
 const UserOptions = styled.div`
@@ -53,17 +54,7 @@ const Navbar = () => {
             {(!User.authenticated && <AuthForm />) ||
               (User.name && (
                 <UserOptions>
-                  <Tooltip title='Your points'>
-                    <Avatar
-                      sx={{
-                        bgcolor: `hsl(50deg 98% ${
-                          35 * ((User.points || 1) / 100)
-                        }% / 70%)`,
-                      }}
-                    >
-                      {User.points}
-                    </Avatar>
-                  </Tooltip>
+                  <UserPoints />
                   <Tooltip title={`Logged in as ${User.name}`}>
                     <Avatar
                       sx={{ bgcolor: stringToColor(User.name.toLocaleUpperCase()) }}

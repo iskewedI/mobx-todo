@@ -1,0 +1,53 @@
+.reward-stars-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  animation: 1s linear 0s alternate gravity-opacity-stars;
+  z-index: 999;
+  opacity: 0.8;
+  transform: translateY(-15%);
+}
+
+.reward-stars__decoration-right {
+  animation: 1s linear 0s alternate decoration-star-right;
+}
+
+.reward-stars__decoration-left {
+  animation: 1s linear 0s alternate decoration-star-left;
+}
+
+@keyframes gravity-opacity-stars {
+  25% {
+    /* pushes the stars up, like a jump */
+    transform: translateY(-20%);
+    opacity: 1;
+  }
+  50% {
+    /* pushes the stars down to the default position */
+    transform: translateY(-10%);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 0.2;
+  }
+}
+
+@keyframes decoration-star-right {
+  100% {
+    /* pushes the stars up, like a jump */
+    transform: translateX(12%);
+  }
+}
+
+@keyframes decoration-star-left {
+  100% {
+    /* pushes the stars up, like a jump */
+    transform: translateX(-12%);
+  }
+}

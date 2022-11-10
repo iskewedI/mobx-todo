@@ -1,4 +1,5 @@
 import { Fab, Tooltip } from '@mui/material';
+import ImageSVG from '../ImageSVG/ImageSVG';
 
 const FabIcon = ({
   icon,
@@ -18,7 +19,7 @@ const FabIcon = ({
         onClick={onClick}
         disabled={disabled}
       >
-        <img src={icon} width={width} height={width} alt={title} />
+        <ImageSVG src={icon} width={width} title={title} />
       </Fab>
     </Tooltip>
   );
