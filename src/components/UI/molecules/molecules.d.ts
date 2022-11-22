@@ -8,10 +8,10 @@ type FormInputProps = {
 };
 
 type ExpandInputProps = {
-  onSubmit: (value: string) => void;
+  onSubmit?: (value: string) => void;
 };
 
 type AuthFormProps = {
   type: FormType;
-  emailInputRef: RefObject<HTMLDivElement>;
+  emailInputRef?: RefObject<HTMLDivElement>;
 };
